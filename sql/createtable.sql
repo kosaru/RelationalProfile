@@ -44,11 +44,11 @@ CREATE TABLE "profile_note" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
 "id_note" INTEGER NOT NULL ,
-"timestamp" TIMESTAMP ,
+"timestamp" TIMESTAMP NOT NULL ,
 PRIMARY KEY ("id")
 );
 
-CREATE TABLE "Company" (
+CREATE TABLE "company" (
 "id"  SERIAL ,
 "name" TEXT /* 会社名 */,
 "brunch" TEXT /* 部署 */,
@@ -57,18 +57,18 @@ CREATE TABLE "Company" (
 "fax" TEXT /* FAX番号 */,
 PRIMARY KEY ("id")
 );
-COMMENT ON TABLE "Company" IS '所属している会社の情報';
-COMMENT ON COLUMN "Company"."name" IS '会社名';
-COMMENT ON COLUMN "Company"."brunch" IS '部署';
-COMMENT ON COLUMN "Company"."post" IS '役職';
-COMMENT ON COLUMN "Company"."tel" IS '電話番号';
-COMMENT ON COLUMN "Company"."fax" IS 'FAX番号';
+COMMENT ON TABLE "company" IS '所属している会社の情報';
+COMMENT ON COLUMN "company"."name" IS '会社名';
+COMMENT ON COLUMN "company"."brunch" IS '部署';
+COMMENT ON COLUMN "company"."post" IS '役職';
+COMMENT ON COLUMN "company"."tel" IS '電話番号';
+COMMENT ON COLUMN "company"."fax" IS 'FAX番号';
 
 CREATE TABLE "profile_company" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
 "id_Company" INTEGER NOT NULL ,
-"timestamp" TIMESTAMP ,
+"timestamp" TIMESTAMP NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -76,7 +76,6 @@ CREATE TABLE "relational_profile" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL /* 自分のプロフィールID */,
 "id_profile_other" INTEGER NOT NULL /* 他者のプロフィールID */,
-"id_relational_status" INTEGER ,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "relational_profile" IS 'プロフィールの繋り';
@@ -85,7 +84,7 @@ COMMENT ON COLUMN "relational_profile"."id_profile_other" IS '他者のプロフ
 
 CREATE TABLE "relational_status" (
 "id"  SERIAL ,
-"timestamp" TIMESTAMP /* 出会いの時刻 */,
+"timestamp" TIMESTAMP NOT NULL /* 出会いの時刻 */,
 "location" GEOMETRY /* 出会った場所 */,
 "photo" BYTEA /* 写真 */,
 PRIMARY KEY ("id")
@@ -95,13 +94,38 @@ COMMENT ON COLUMN "relational_status"."timestamp" IS '出会いの時刻';
 COMMENT ON COLUMN "relational_status"."location" IS '出会った場所';
 COMMENT ON COLUMN "relational_status"."photo" IS '写真';
 
+CREATE TABLE "relational_profile_status" (
+"id"  SERIAL ,
+"id_relational_profile" INTEGER NOT NULL ,
+"id_relational_status" INTEGER NOT NULL ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "card" (
+"id"  SERIAL ,
+"value" BYTEA NOT NULL ,
+PRIMARY KEY ("id")
+);
+COMMENT ON TABLE "card" IS '名刺 列についてはPending';
+
+CREATE TABLE "profile_card" (
+"id"  SERIAL ,
+"id_profile" INTEGER ,
+"id_card" INTEGER ,
+"timestamp" TIMESTAMP NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_password") REFERENCES "password" ("id");
 ALTER TABLE "profile_note" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_note" ADD FOREIGN KEY ("id_note") REFERENCES "note" ("id");
 ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
-ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_Company") REFERENCES "Company" ("id");
+ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_Company") REFERENCES "company" ("id");
 ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_profile_other") REFERENCES "profile" ("id");
-ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_relational_status") REFERENCES "relational_status" ("id");
+ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_profile") REFERENCES "relational_profile" ("id");
+ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_status") REFERENCES "relational_status" ("id");
+ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
+ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_card") REFERENCES "card" ("id");
 
