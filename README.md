@@ -1,2 +1,2 @@
-ProfileRelation
-===============
+RelationalProfile
+=================
