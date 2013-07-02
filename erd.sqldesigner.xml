@@ -82,11 +82,11 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_profile" null="1" autoincrement="0">
+<row name="id_profile" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_password" null="1" autoincrement="0">
+<row name="id_password" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="password" row="id" />
 </row>
@@ -112,11 +112,11 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_profile" null="1" autoincrement="0">
+<row name="id_profile" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_note" null="1" autoincrement="0">
+<row name="id_note" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="note" row="id" />
 </row>
@@ -154,17 +154,42 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_profile" null="1" autoincrement="0">
+<row name="id_profile" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_Company" null="1" autoincrement="0">
+<row name="id_Company" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="Company" row="id" />
 </row>
 <row name="timestamp" null="1" autoincrement="0">
 <datatype>DATE</datatype>
 <default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="139" y="95" name="profile_profile">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_profile" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="profile" row="id" />
+</row>
+<row name="id_profile_other" null="0" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="profile" row="id" />
+</row>
+<row name="timestamp" null="0" autoincrement="0">
+<datatype>DATE</datatype>
+<default>'NULL'</default></row>
+<row name="location" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
+<row name="photo" null="0" autoincrement="0">
+<datatype>BYTEA</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
