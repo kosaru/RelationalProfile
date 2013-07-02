@@ -19,7 +19,7 @@ CREATE TABLE "profile_password" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
 "id_password" INTEGER NOT NULL ,
-"timestamp" DATE NOT NULL ,
+"timestamp" TIMESTAMP NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -33,7 +33,7 @@ CREATE TABLE "profile_note" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
 "id_note" INTEGER NOT NULL ,
-"timestamp" DATE ,
+"timestamp" TIMESTAMP ,
 PRIMARY KEY ("id")
 );
 
@@ -51,7 +51,7 @@ CREATE TABLE "profile_company" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
 "id_Company" INTEGER NOT NULL ,
-"timestamp" DATE ,
+"timestamp" TIMESTAMP ,
 PRIMARY KEY ("id")
 );
 
@@ -59,8 +59,8 @@ CREATE TABLE "profile_profile" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
 "id_profile_other" INTEGER NOT NULL ,
-"timestamp" DATE NOT NULL ,
-"location" TEXT NOT NULL ,
+"timestamp" TIMESTAMP NOT NULL ,
+"location" GEOMETRY NOT NULL ,
 "photo" BYTEA NOT NULL ,
 PRIMARY KEY ("id")
 );
