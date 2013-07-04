@@ -41,10 +41,14 @@
 		<type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
 		<type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
 	</group>
-</datatypes><table x="511" y="212" name="profile">
+</datatypes><table x="525" y="208" name="profile">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="mail" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><comment>メールアドレス兼ログインアカウント</comment>
+</row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default><comment>名前</comment>
@@ -68,10 +72,6 @@
 <row name="fax" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>FAX番号</comment>
-</row>
-<row name="photo" null="1" autoincrement="0">
-<datatype>BYTEA</datatype>
-<default>NULL</default><comment>写真</comment>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
