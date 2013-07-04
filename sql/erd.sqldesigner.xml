@@ -156,6 +156,12 @@
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>役職</comment>
 </row>
+<row name="zip" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
+<row name="address" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
 <row name="tel" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>電話番号</comment>
@@ -211,10 +217,6 @@
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="timestamp" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
-<default>'NULL'</default><comment>出会いの時刻</comment>
-</row>
 <row name="location" null="1" autoincrement="0">
 <datatype>GEOMETRY</datatype>
 <default>NULL</default><comment>出会った場所</comment>
@@ -240,6 +242,9 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="relational_status" row="id" />
 </row>
+<row name="timestamp" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
@@ -271,6 +276,33 @@
 <row name="timestamp" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="510" y="634" name="photo">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="value" null="1" autoincrement="0">
+<datatype>BYTEA</datatype>
+<default>NULL</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="487" y="468" name="profile_photo">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_profile" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="profile" row="id" />
+</row>
+<row name="id_photo" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="photo" row="id" />
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
