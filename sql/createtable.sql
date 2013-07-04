@@ -1,22 +1,22 @@
 CREATE TABLE "profile" (
 "id"  SERIAL ,
+"mail" TEXT NOT NULL /* メールアドレス兼ログインアカウント */,
 "name" TEXT NOT NULL /* 名前 */,
 "ruby" TEXT /* 名前のルビ */,
 "zip" TEXT /* 郵便番号 */,
 "address" TEXT /* 住所 */,
 "tel" TEXT /* 電話番号 */,
 "fax" TEXT /* FAX番号 */,
-"photo" BYTEA /* 写真 */,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "profile" IS 'プロフィール';
+COMMENT ON COLUMN "profile"."mail" IS 'メールアドレス兼ログインアカウント';
 COMMENT ON COLUMN "profile"."name" IS '名前';
 COMMENT ON COLUMN "profile"."ruby" IS '名前のルビ';
 COMMENT ON COLUMN "profile"."zip" IS '郵便番号';
 COMMENT ON COLUMN "profile"."address" IS '住所';
 COMMENT ON COLUMN "profile"."tel" IS '電話番号';
 COMMENT ON COLUMN "profile"."fax" IS 'FAX番号';
-COMMENT ON COLUMN "profile"."photo" IS '写真';
 
 CREATE TABLE "password" (
 "id"  SERIAL ,
@@ -53,6 +53,8 @@ CREATE TABLE "company" (
 "name" TEXT /* 会社名 */,
 "brunch" TEXT /* 部署 */,
 "post" TEXT /* 役職 */,
+"zip" TEXT ,
+"address" TEXT ,
 "tel" TEXT /* 電話番号 */,
 "fax" TEXT /* FAX番号 */,
 PRIMARY KEY ("id")
@@ -84,13 +86,11 @@ COMMENT ON COLUMN "relational_profile"."id_profile_other" IS '他者のプロフ
 
 CREATE TABLE "relational_status" (
 "id"  SERIAL ,
-"timestamp" TIMESTAMP NOT NULL /* 出会いの時刻 */,
 "location" GEOMETRY /* 出会った場所 */,
 "photo" BYTEA /* 写真 */,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "relational_status" IS '繋りの状態';
-COMMENT ON COLUMN "relational_status"."timestamp" IS '出会いの時刻';
 COMMENT ON COLUMN "relational_status"."location" IS '出会った場所';
 COMMENT ON COLUMN "relational_status"."photo" IS '写真';
 
@@ -98,6 +98,7 @@ CREATE TABLE "relational_profile_status" (
 "id"  SERIAL ,
 "id_relational_profile" INTEGER NOT NULL ,
 "id_relational_status" INTEGER NOT NULL ,
+"timestamp" TIMESTAMP NOT NULL ,
 PRIMARY KEY ("id")
 );
 
@@ -116,6 +117,19 @@ CREATE TABLE "profile_card" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "photo" (
+"id"  SERIAL ,
+"value" BYTEA ,
+PRIMARY KEY ("id")
+);
+
+CREATE TABLE "profile_photo" (
+"id"  SERIAL ,
+"id_profile" INTEGER ,
+"id_photo" INTEGER ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_password") REFERENCES "password" ("id");
 ALTER TABLE "profile_note" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
@@ -128,4 +142,6 @@ ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_profile"
 ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_status") REFERENCES "relational_status" ("id");
 ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_card") REFERENCES "card" ("id");
+ALTER TABLE "profile_photo" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
+ALTER TABLE "profile_photo" ADD FOREIGN KEY ("id_photo") REFERENCES "photo" ("id");
 
