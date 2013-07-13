@@ -83,15 +83,17 @@ COMMENT ON TABLE "relational_profile" IS 'プロフィールの繋り';
 COMMENT ON COLUMN "relational_profile"."id_profile" IS '自分のプロフィールID';
 COMMENT ON COLUMN "relational_profile"."id_profile_other" IS '他者のプロフィールID';
 
-CREATE TABLE "relational_status" (
+CREATE TABLE "relational_situation" (
 "id"  SERIAL ,
 "location" GEOMETRY /* 出会った場所 */,
 "photo" BYTEA /* 写真 */,
+"comment" TEXT NOT NULL /* 状況の説明 */,
 PRIMARY KEY ("id")
 );
-COMMENT ON TABLE "relational_status" IS '繋りの状態';
-COMMENT ON COLUMN "relational_status"."location" IS '出会った場所';
-COMMENT ON COLUMN "relational_status"."photo" IS '写真';
+COMMENT ON TABLE "relational_situation" IS '繋りの状態(何所で会ったか？)';
+COMMENT ON COLUMN "relational_situation"."location" IS '出会った場所';
+COMMENT ON COLUMN "relational_situation"."photo" IS '写真';
+COMMENT ON COLUMN "relational_situation"."comment" IS '状況の説明';
 
 CREATE TABLE "relational_profile_status" (
 "id"  SERIAL ,
@@ -100,6 +102,7 @@ CREATE TABLE "relational_profile_status" (
 "timestamp" TIMESTAMP NOT NULL ,
 PRIMARY KEY ("id")
 );
+COMMENT ON TABLE "relational_profile_status" IS '何時会ったか';
 
 CREATE TABLE "card" (
 "id"  SERIAL ,
@@ -184,7 +187,7 @@ ALTER TABLE "affiliation" ADD FOREIGN KEY ("id_branch") REFERENCES "branch" ("id
 ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_profile_other") REFERENCES "profile" ("id");
 ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_profile") REFERENCES "relational_profile" ("id");
-ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_status") REFERENCES "relational_status" ("id");
+ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_status") REFERENCES "relational_situation" ("id");
 ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_card") REFERENCES "card" ("id");
 ALTER TABLE "profile_photo" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
