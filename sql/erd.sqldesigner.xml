@@ -41,7 +41,7 @@
 		<type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
 		<type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
 	</group>
-</datatypes><table x="515" y="208" name="profile">
+</datatypes><table x="521" y="196" name="profile">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -165,10 +165,6 @@
 <row name="fax" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>FAX番号</comment>
-</row>
-<row name="branch" null="1" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>NULL</default><comment>部門</comment>
 </row>
 <key type="PRIMARY" name="">
 <part>id</part>
@@ -332,7 +328,7 @@
 </key>
 <comment>部門</comment>
 </table>
-<table x="765" y="474" name="profile_company">
+<table x="785" y="496" name="profile_company">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -347,6 +343,10 @@
 <row name="timestamp" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
+<row name="branch_name" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><comment>部署名</comment>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
