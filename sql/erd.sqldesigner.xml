@@ -41,7 +41,7 @@
 		<type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
 		<type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
 	</group>
-</datatypes><table x="521" y="196" name="profile">
+</datatypes><table x="632" y="196" name="profile">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -73,81 +73,74 @@
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>FAX番号</comment>
 </row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
+<row name="updated_at" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>プロフィール</comment>
 </table>
-<table x="974" y="288" name="password">
+<table x="1080" y="124" name="passwords">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="value" null="0" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="718" y="315" name="profile_password">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_profile" null="0" autoincrement="0">
+<row name="id_profile" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_password" null="0" autoincrement="0">
+<row name="id_companie" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="password" row="id" />
+<default>NULL</default><relation table="companies" row="id" />
 </row>
-<row name="timestamp" null="0" autoincrement="0">
+<row name="value" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default></row>
+<row name="created_at" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="979" y="139" name="note">
+<table x="909" y="45" name="notes">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="id_profile" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="profile" row="id" />
+</row>
 <row name="value" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>備考の内容</comment>
 </row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>備考</comment>
 </table>
-<table x="713" y="133" name="profile_note">
+<table x="1134" y="320" name="companies">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_profile" null="0" autoincrement="0">
+<row name="id_profile" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_note" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="note" row="id" />
-</row>
-<row name="timestamp" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
-<default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="1211" y="498" name="company">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="name" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>会社名</comment>
 </row>
+<row name="branch_name" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default></row>
 <row name="post" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>役職</comment>
@@ -166,12 +159,15 @@
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>FAX番号</comment>
 </row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>所属している会社の情報</comment>
 </table>
-<table x="723" y="638" name="affiliation">
+<table x="793" y="375" name="affiliations">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -181,9 +177,9 @@
 </row>
 <row name="id_branch" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="branch" row="id" />
+<default>NULL</default><relation table="branches" row="id" />
 </row>
-<row name="timestamp" null="0" autoincrement="0">
+<row name="created_at" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
@@ -191,7 +187,7 @@
 </key>
 <comment>企業版で利用 所属</comment>
 </table>
-<table x="283" y="103" name="relational_profile">
+<table x="400" y="83" name="relational_profile">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -205,15 +201,22 @@
 <default>NULL</default><relation table="profile" row="id" />
 <comment>他者のプロフィールID</comment>
 </row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>プロフィールの繋り</comment>
 </table>
-<table x="30" y="448" name="relational_situation">
+<table x="121" y="52" name="relational_situations">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
+<row name="id_relational_profile" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="relational_profile" row="id" />
+</row>
 <row name="location" null="1" autoincrement="0">
 <datatype>GEOMETRY</datatype>
 <default>NULL</default><comment>出会った場所</comment>
@@ -226,44 +229,34 @@
 <datatype>TEXT</datatype>
 <default>'NULL'</default><comment>状況の説明</comment>
 </row>
+<row name="created_at" null="1" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>NULL</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>繋りの状態(何所で会ったか？)</comment>
 </table>
-<table x="44" y="238" name="relational_profile_status">
+<table x="443" y="308" name="cards">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
-<row name="id_relational_profile" null="0" autoincrement="0">
+<row name="id_profile" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="relational_profile" row="id" />
+<default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_relational_status" null="0" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="relational_situation" row="id" />
-</row>
-<row name="timestamp" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
-<default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-<comment>何時会ったか</comment>
-</table>
-<table x="262" y="580" name="card">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="value" null="0" autoincrement="0">
 <datatype>BYTEA</datatype>
+<default>'NULL'</default></row>
+<row name="created_at" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>名刺 列についてはPending</comment>
 </table>
-<table x="307" y="350" name="profile_card">
+<table x="476" y="490" name="photos">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -271,61 +264,33 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_card" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="card" row="id" />
-</row>
-<row name="timestamp" null="0" autoincrement="0">
+<row name="value" null="1" autoincrement="0">
+<datatype>BYTEA</datatype>
+<default>NULL</default></row>
+<row name="created_at" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 </table>
-<table x="510" y="634" name="photo">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="value" null="1" autoincrement="0">
-<datatype>BYTEA</datatype>
-<default>NULL</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="487" y="468" name="profile_photo">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_profile" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="profile" row="id" />
-</row>
-<row name="id_photo" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="photo" row="id" />
-</row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="969" y="626" name="branch">
+<table x="952" y="490" name="branches">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="id_branch" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="branch" row="id" />
+<default>NULL</default><relation table="branches" row="id" />
 </row>
 <row name="id_company" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="company" row="id" />
+<default>NULL</default><relation table="companies" row="id" />
 </row>
 <row name="name" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default><comment>所属名</comment>
 </row>
-<row name="timestamp" null="0" autoincrement="0">
+<row name="created_at" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
@@ -333,7 +298,7 @@
 </key>
 <comment>部門</comment>
 </table>
-<table x="785" y="496" name="profile_company">
+<table x="653" y="39" name="mails">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -341,71 +306,16 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_company" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="company" row="id" />
-</row>
-<row name="timestamp" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
-<default>'NULL'</default></row>
-<row name="branch_name" null="1" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>NULL</default><comment>部署名</comment>
-</row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-<comment>個人版サービスで利用</comment>
-</table>
-<table x="1160" y="280" name="company_password">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_company" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="company" row="id" />
-</row>
-<row name="id_password" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="password" row="id" />
-</row>
-<row name="timestamp" null="0" autoincrement="0">
-<datatype>TIMESTAMP</datatype>
-<default>'NULL'</default></row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-</table>
-<table x="729" y="29" name="mail">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
 <row name="account" null="0" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>'NULL'</default><comment>mail account</comment>
 </row>
-<key type="PRIMARY" name="">
-<part>id</part>
-</key>
-<comment>メール情報</comment>
-</table>
-<table x="525" y="61" name="profile_mail">
-<row name="id" null="1" autoincrement="1">
-<datatype>INTEGER</datatype>
-<default>NULL</default></row>
-<row name="id_profile" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="profile" row="id" />
-</row>
-<row name="id_mail" null="1" autoincrement="0">
-<datatype>INTEGER</datatype>
-<default>NULL</default><relation table="mail" row="id" />
-</row>
-<row name="timestamp" null="0" autoincrement="0">
+<row name="created_at" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
 <default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>メール情報</comment>
 </table>
 </sql>
