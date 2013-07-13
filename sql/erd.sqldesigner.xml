@@ -41,7 +41,7 @@
 		<type label="Inet CIDR Addr" length="0" sql="CIDR" quote="'"/>
 		<type label="Geometry" length="0" sql="GEOMETRY" quote="'"/>
 	</group>
-</datatypes><table x="525" y="208" name="profile">
+</datatypes><table x="515" y="208" name="profile">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -78,7 +78,7 @@
 </key>
 <comment>プロフィール</comment>
 </table>
-<table x="986" y="279" name="password">
+<table x="974" y="288" name="password">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -89,7 +89,7 @@
 <part>id</part>
 </key>
 </table>
-<table x="718" y="362" name="profile_password">
+<table x="718" y="315" name="profile_password">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -140,17 +140,13 @@
 <part>id</part>
 </key>
 </table>
-<table x="1021" y="437" name="company">
+<table x="1211" y="498" name="company">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
 <row name="name" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>会社名</comment>
-</row>
-<row name="brunch" null="1" autoincrement="0">
-<datatype>TEXT</datatype>
-<default>NULL</default><comment>部署</comment>
 </row>
 <row name="post" null="1" autoincrement="0">
 <datatype>TEXT</datatype>
@@ -170,12 +166,16 @@
 <datatype>TEXT</datatype>
 <default>NULL</default><comment>FAX番号</comment>
 </row>
+<row name="branch" null="1" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>NULL</default><comment>部門</comment>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
 <comment>所属している会社の情報</comment>
 </table>
-<table x="727" y="554" name="profile_company">
+<table x="723" y="638" name="affiliation">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -183,9 +183,9 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="profile" row="id" />
 </row>
-<row name="id_Company" null="0" autoincrement="0">
+<row name="id_branch" null="1" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="company" row="id" />
+<default>NULL</default><relation table="branch" row="id" />
 </row>
 <row name="timestamp" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -193,6 +193,7 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>企業版で利用 所属</comment>
 </table>
 <table x="303" y="102" name="relational_profile">
 <row name="id" null="1" autoincrement="1">
@@ -303,6 +304,69 @@
 <datatype>INTEGER</datatype>
 <default>NULL</default><relation table="photo" row="id" />
 </row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+</table>
+<table x="969" y="626" name="branch">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_branch" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="branch" row="id" />
+</row>
+<row name="id_company" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="company" row="id" />
+</row>
+<row name="name" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><comment>所属名</comment>
+</row>
+<row name="timestamp" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>部門</comment>
+</table>
+<table x="765" y="474" name="profile_company">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_profile" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="profile" row="id" />
+</row>
+<row name="id_company" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="company" row="id" />
+</row>
+<row name="timestamp" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
+<key type="PRIMARY" name="">
+<part>id</part>
+</key>
+<comment>個人版サービスで利用</comment>
+</table>
+<table x="1160" y="280" name="company_password">
+<row name="id" null="1" autoincrement="1">
+<datatype>INTEGER</datatype>
+<default>NULL</default></row>
+<row name="id_company" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="company" row="id" />
+</row>
+<row name="id_password" null="1" autoincrement="0">
+<datatype>INTEGER</datatype>
+<default>NULL</default><relation table="password" row="id" />
+</row>
+<row name="timestamp" null="0" autoincrement="0">
+<datatype>TIMESTAMP</datatype>
+<default>'NULL'</default></row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
