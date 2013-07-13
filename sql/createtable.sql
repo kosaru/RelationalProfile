@@ -1,3 +1,6 @@
+
+
+
 CREATE TABLE "profile" (
 "id"  SERIAL ,
 "mail" TEXT NOT NULL /* メールアドレス兼ログインアカウント */,
@@ -56,7 +59,6 @@ CREATE TABLE "company" (
 "address" TEXT ,
 "tel" TEXT /* 電話番号 */,
 "fax" TEXT /* FAX番号 */,
-"branch" TEXT /* 部門 */,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "company" IS '所属している会社の情報';
@@ -64,7 +66,6 @@ COMMENT ON COLUMN "company"."name" IS '会社名';
 COMMENT ON COLUMN "company"."post" IS '役職';
 COMMENT ON COLUMN "company"."tel" IS '電話番号';
 COMMENT ON COLUMN "company"."fax" IS 'FAX番号';
-COMMENT ON COLUMN "company"."branch" IS '部門';
 
 CREATE TABLE "affiliation" (
 "id"  SERIAL ,
@@ -147,9 +148,11 @@ CREATE TABLE "profile_company" (
 "id_profile" INTEGER ,
 "id_company" INTEGER ,
 "timestamp" TIMESTAMP NOT NULL ,
+"branch_name" TEXT /* 部署名 */,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "profile_company" IS '個人版サービスで利用';
+COMMENT ON COLUMN "profile_company"."branch_name" IS '部署名';
 
 CREATE TABLE "company_password" (
 "id"  SERIAL ,
