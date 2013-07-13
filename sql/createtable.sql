@@ -1,6 +1,3 @@
-
-
-
 CREATE TABLE "profile" (
 "id"  SERIAL ,
 "mail" TEXT NOT NULL /* メールアドレス兼ログインアカウント */,
@@ -162,6 +159,22 @@ CREATE TABLE "company_password" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "mail" (
+"id"  SERIAL ,
+"account" TEXT NOT NULL /* mail account */,
+PRIMARY KEY ("id")
+);
+COMMENT ON TABLE "mail" IS 'メール情報';
+COMMENT ON COLUMN "mail"."account" IS 'mail account';
+
+CREATE TABLE "profile_mail" (
+"id"  SERIAL ,
+"id_profile" INTEGER ,
+"id_mail" INTEGER ,
+"timestamp" TIMESTAMP NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_password") REFERENCES "password" ("id");
 ALTER TABLE "profile_note" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
@@ -182,4 +195,6 @@ ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_profile") REFERENCES "profile
 ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_company") REFERENCES "company" ("id");
 ALTER TABLE "company_password" ADD FOREIGN KEY ("id_company") REFERENCES "company" ("id");
 ALTER TABLE "company_password" ADD FOREIGN KEY ("id_password") REFERENCES "password" ("id");
+ALTER TABLE "profile_mail" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
+ALTER TABLE "profile_mail" ADD FOREIGN KEY ("id_mail") REFERENCES "mail" ("id");
 
