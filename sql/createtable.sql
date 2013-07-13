@@ -51,28 +51,29 @@ PRIMARY KEY ("id")
 CREATE TABLE "company" (
 "id"  SERIAL ,
 "name" TEXT /* 会社名 */,
-"brunch" TEXT /* 部署 */,
 "post" TEXT /* 役職 */,
 "zip" TEXT ,
 "address" TEXT ,
 "tel" TEXT /* 電話番号 */,
 "fax" TEXT /* FAX番号 */,
+"branch" TEXT /* 部門 */,
 PRIMARY KEY ("id")
 );
 COMMENT ON TABLE "company" IS '所属している会社の情報';
 COMMENT ON COLUMN "company"."name" IS '会社名';
-COMMENT ON COLUMN "company"."brunch" IS '部署';
 COMMENT ON COLUMN "company"."post" IS '役職';
 COMMENT ON COLUMN "company"."tel" IS '電話番号';
 COMMENT ON COLUMN "company"."fax" IS 'FAX番号';
+COMMENT ON COLUMN "company"."branch" IS '部門';
 
-CREATE TABLE "profile_company" (
+CREATE TABLE "affiliation" (
 "id"  SERIAL ,
 "id_profile" INTEGER NOT NULL ,
-"id_Company" INTEGER NOT NULL ,
+"id_branch" INTEGER ,
 "timestamp" TIMESTAMP NOT NULL ,
 PRIMARY KEY ("id")
 );
+COMMENT ON TABLE "affiliation" IS '企業版で利用 所属';
 
 CREATE TABLE "relational_profile" (
 "id"  SERIAL ,
@@ -130,12 +131,40 @@ CREATE TABLE "profile_photo" (
 PRIMARY KEY ("id")
 );
 
+CREATE TABLE "branch" (
+"id"  SERIAL ,
+"id_branch" INTEGER ,
+"id_company" INTEGER ,
+"name" TEXT NOT NULL /* 所属名 */,
+"timestamp" TIMESTAMP NOT NULL ,
+PRIMARY KEY ("id")
+);
+COMMENT ON TABLE "branch" IS '部門';
+COMMENT ON COLUMN "branch"."name" IS '所属名';
+
+CREATE TABLE "profile_company" (
+"id"  SERIAL ,
+"id_profile" INTEGER ,
+"id_company" INTEGER ,
+"timestamp" TIMESTAMP NOT NULL ,
+PRIMARY KEY ("id")
+);
+COMMENT ON TABLE "profile_company" IS '個人版サービスで利用';
+
+CREATE TABLE "company_password" (
+"id"  SERIAL ,
+"id_company" INTEGER ,
+"id_password" INTEGER ,
+"timestamp" TIMESTAMP NOT NULL ,
+PRIMARY KEY ("id")
+);
+
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_password" ADD FOREIGN KEY ("id_password") REFERENCES "password" ("id");
 ALTER TABLE "profile_note" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_note" ADD FOREIGN KEY ("id_note") REFERENCES "note" ("id");
-ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
-ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_Company") REFERENCES "company" ("id");
+ALTER TABLE "affiliation" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
+ALTER TABLE "affiliation" ADD FOREIGN KEY ("id_branch") REFERENCES "branch" ("id");
 ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "relational_profile" ADD FOREIGN KEY ("id_profile_other") REFERENCES "profile" ("id");
 ALTER TABLE "relational_profile_status" ADD FOREIGN KEY ("id_relational_profile") REFERENCES "relational_profile" ("id");
@@ -144,4 +173,10 @@ ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" (
 ALTER TABLE "profile_card" ADD FOREIGN KEY ("id_card") REFERENCES "card" ("id");
 ALTER TABLE "profile_photo" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
 ALTER TABLE "profile_photo" ADD FOREIGN KEY ("id_photo") REFERENCES "photo" ("id");
+ALTER TABLE "branch" ADD FOREIGN KEY ("id_branch") REFERENCES "branch" ("id");
+ALTER TABLE "branch" ADD FOREIGN KEY ("id_company") REFERENCES "company" ("id");
+ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_profile") REFERENCES "profile" ("id");
+ALTER TABLE "profile_company" ADD FOREIGN KEY ("id_company") REFERENCES "company" ("id");
+ALTER TABLE "company_password" ADD FOREIGN KEY ("id_company") REFERENCES "company" ("id");
+ALTER TABLE "company_password" ADD FOREIGN KEY ("id_password") REFERENCES "password" ("id");
 
