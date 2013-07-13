@@ -191,7 +191,7 @@
 </key>
 <comment>企業版で利用 所属</comment>
 </table>
-<table x="303" y="102" name="relational_profile">
+<table x="283" y="103" name="relational_profile">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -210,7 +210,7 @@
 </key>
 <comment>プロフィールの繋り</comment>
 </table>
-<table x="39" y="422" name="relational_status">
+<table x="30" y="448" name="relational_situation">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -222,12 +222,16 @@
 <datatype>BYTEA</datatype>
 <default>NULL</default><comment>写真</comment>
 </row>
+<row name="comment" null="0" autoincrement="0">
+<datatype>TEXT</datatype>
+<default>'NULL'</default><comment>状況の説明</comment>
+</row>
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
-<comment>繋りの状態</comment>
+<comment>繋りの状態(何所で会ったか？)</comment>
 </table>
-<table x="52" y="257" name="relational_profile_status">
+<table x="44" y="238" name="relational_profile_status">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -237,7 +241,7 @@
 </row>
 <row name="id_relational_status" null="0" autoincrement="0">
 <datatype>INTEGER</datatype>
-<default>NULL</default><relation table="relational_status" row="id" />
+<default>NULL</default><relation table="relational_situation" row="id" />
 </row>
 <row name="timestamp" null="0" autoincrement="0">
 <datatype>TIMESTAMP</datatype>
@@ -245,8 +249,9 @@
 <key type="PRIMARY" name="">
 <part>id</part>
 </key>
+<comment>何時会ったか</comment>
 </table>
-<table x="246" y="687" name="card">
+<table x="262" y="580" name="card">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
@@ -258,7 +263,7 @@
 </key>
 <comment>名刺 列についてはPending</comment>
 </table>
-<table x="267" y="514" name="profile_card">
+<table x="307" y="350" name="profile_card">
 <row name="id" null="1" autoincrement="1">
 <datatype>INTEGER</datatype>
 <default>NULL</default></row>
